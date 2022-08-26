@@ -1,0 +1,7 @@
+/*
+ * Public API Surface of spice
+ */
+export * from './lib/spice.service';
+export * from './lib/spice.component';
+export * from './lib/spice.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL3NwaWNlL3NyYy9wdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyxxQkFBcUIsQ0FBQztBQUNwQyxjQUFjLHVCQUF1QixDQUFDO0FBQ3RDLGNBQWMsb0JBQW9CLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogUHVibGljIEFQSSBTdXJmYWNlIG9mIHNwaWNlXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvc3BpY2Uuc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9zcGljZS5jb21wb25lbnQnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvc3BpY2UubW9kdWxlJztcbiJdfQ==
