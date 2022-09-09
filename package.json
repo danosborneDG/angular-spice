@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve angular-spice-app",
-    "build": "ng build spice",
+    "build:spice": "ng build spice",
+    "build:app": "ng build angular-spice-app",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
