@@ -1,0 +1,21 @@
+{
+  "extends": "nx/presets/npm.json",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [],
+        "accessToken": "YzVkYzE3YmUtZDM4Zi00NDNlLTgyMDgtY2I4ZjJiNGM0OTY3fHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "targetDefaults": {},
+  "affected": {
+    "defaultBase": "main"
+  },
+  "workspaceLayout": {
+    "libsDir": "projects",
+    "appsDir": "projects"
+  },
+  "defaultProject": "spice"
+}

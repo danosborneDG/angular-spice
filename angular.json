@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/spice",
       "sourceRoot": "projects/spice/src",
-      "prefix": "lib",
+      "prefix": "spice",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -43,7 +43,7 @@
       },
       "root": "projects/angular-spice-app",
       "sourceRoot": "projects/angular-spice-app/src",
-      "prefix": "app",
+      "prefix": "spice-app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
