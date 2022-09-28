@@ -10,6 +10,7 @@ export enum Position {
 
 export interface DoughnutSettings {
   value: number;
+  size?: number;
   maxValue?: number;
   topValue?: number;
   thickness?: number;
@@ -26,15 +27,27 @@ export interface DoughnutSettings {
   format?: Format;
 }
 
+export interface Styles {
+  containerStyles?: ContainerStyles;
+  circleStyles?: SVGElementStyles;
+  pathStyles?: SVGElementStyles;
+  textContainerStyles?: TextContainerStyles;
+  valueTextStyle?: TextStyles;
+  labelTextStyle?: TextStyles;
+}
+
 export interface ContainerStyles {
   width: string;
   height: string;
   position: string;
 }
 
-export interface SVGElementStyles {
+export interface SharedSVGElementStyles {
   fill: string;
   strokeWidth: string;
+}
+
+export interface SVGElementStyles extends SharedSVGElementStyles {
   stroke: string;
 }
 
