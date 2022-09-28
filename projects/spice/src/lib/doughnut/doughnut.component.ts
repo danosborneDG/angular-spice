@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   ContainerStyles,
+  DoughnutSettings,
+  Styles,
   SVGElementStyles,
   TextContainerStyles,
   TextStyles,
@@ -13,54 +15,30 @@ import { DoughnutService } from './doughnut.service';
   styleUrls: ['./doughnut.component.scss'],
 })
 export class DoughnutComponent implements OnInit {
-  constructor(private doughnutService: DoughnutService) {}
-
-  containerStyles: ContainerStyles = {
-    width: ' 200px',
-    height: '200px',
-    position: 'relative',
-  };
-
-  circleStyles: SVGElementStyles = {
-    fill: 'none',
-    strokeWidth: '15px',
-    stroke: 'rgb(221, 221, 221)',
-  };
-
-  pathStyles: SVGElementStyles = {
-    fill: 'none',
-    strokeWidth: '15px',
-    stroke: 'rgb(41, 128, 185)',
-  };
-
-  textContainerStyles: TextContainerStyles = {
-    fontFamily: 'inherit',
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    textAlign: 'center',
-  };
-
-  valueTextStyles: TextStyles = {
-    fontWeight: 'bold',
-    fontSize: '28px',
-    color: 'rgb(41, 128, 185)',
-    margin: '0px',
-  };
-
-  labelTextStyles: TextStyles = {
-    fontWeight: 'normal',
-    fontSize: '14px',
-    color: 'rgb(51, 51, 51)',
-    margin: '0px',
-  };
-
+  thisSettings: DoughnutSettings | null = null;
+  styles: Styles | null = null;
+  containerStyles: ContainerStyles | null = null;
+  circleStyles: SVGElementStyles | null = null;
+  pathStyles: SVGElementStyles | null = null;
+  textContainerStyles: TextContainerStyles | null = null;
+  valueTextStyles: TextStyles | null = null;
+  labelTextStyles: TextStyles | null = null;
   pathAttribute: string | null = null;
   viewBoxAttribute = '0 0 200 200';
   radiusAttribute = '85';
 
+  @Input() settings: DoughnutSettings | null = null;
+
+  constructor(private doughnutService: DoughnutService) {}
+
   ngOnInit(): void {
+    this.styles = this.doughnutService.generateStyles({ value: 75 });
+    this.containerStyles = this.styles.containerStyles;
+    this.circleStyles = this.styles.circleStyles;
+    this.pathStyles = this.styles.pathStyles;
+    this.textContainerStyles = this.styles.textContainerStyles;
+    this.valueTextStyles = this.styles.valueTextStyles;
+    this.labelTextStyles = this.styles.labelTextStyles;
     this.pathAttribute = this.doughnutService.calculatePathShape(34, 200, 15);
   }
 }

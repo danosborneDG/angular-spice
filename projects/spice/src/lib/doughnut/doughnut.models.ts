@@ -16,6 +16,7 @@ export interface DoughnutSettings {
   thickness?: number;
   animationDuration?: number | null;
   primaryColour?: string;
+  fontFamily?: string;
   ringColour?: string;
   labelText?: string;
   labelColour?: string;
@@ -28,12 +29,12 @@ export interface DoughnutSettings {
 }
 
 export interface Styles {
-  containerStyles?: ContainerStyles;
-  circleStyles?: SVGElementStyles;
-  pathStyles?: SVGElementStyles;
-  textContainerStyles?: TextContainerStyles;
-  valueTextStyle?: TextStyles;
-  labelTextStyle?: TextStyles;
+  containerStyles: ContainerStyles;
+  circleStyles: SVGElementStyles;
+  pathStyles: SVGElementStyles;
+  textContainerStyles: TextContainerStyles;
+  valueTextStyles: TextStyles;
+  labelTextStyles: TextStyles;
 }
 
 export interface ContainerStyles {

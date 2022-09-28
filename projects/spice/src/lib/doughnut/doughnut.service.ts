@@ -39,11 +39,13 @@ export class DoughnutService {
     return String(attrString);
   }
 
+  parseSettings(settings: DoughnutService) {}
+
   generateStyles(settings: DoughnutSettings): Styles {
-    const size = `${settings?.size}px` || '200px';
+    const size = settings.size ? `${settings.size}px` : '200px';
     const sharedSvgStyles: SharedSVGElementStyles = {
       fill: 'none',
-      strokeWidth: `${settings.thickness}px` || '5px',
+      strokeWidth: settings.thickness ? `${settings.thickness}px` : '15px',
     };
 
     return {
@@ -57,7 +59,7 @@ export class DoughnutService {
         ...sharedSvgStyles,
       },
       pathStyles: {
-        stroke: settings.primaryColour || '#DDD',
+        stroke: settings.primaryColour || 'rgb(41, 128, 185)',
         ...sharedSvgStyles,
       },
       textContainerStyles: {
@@ -68,15 +70,15 @@ export class DoughnutService {
         transform: 'translate(-50%, -50%)',
         textAlign: 'center',
       },
-      valueTextStyle: {
+      valueTextStyles: {
         fontWeight: settings.valueFontWeight || 'bold',
-        fontSize: `${settings.valueFontSize}px` || '28px',
-        color: settings.primaryColour || '#e7534f',
+        fontSize: settings.valueFontSize ? `${settings.valueFontSize}px` : '28px',
+        color: settings.primaryColour || 'rgb(41, 128, 185)',
         margin: '0',
       },
-      labelTextStyle: {
+      labelTextStyles: {
         fontWeight: settings.labelFontWeight || 'normal',
-        fontSize: `${settings.labelFontSize}px` || '14px',
+        fontSize: settings.labelFontSize ? `${settings.labelFontSize}px` : '14px',
         color: settings.labelColour || '#333',
         margin: ' 0',
       },
