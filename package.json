@@ -7,7 +7,9 @@
     "build:spice": "ng build spice",
     "build:app": "ng build angular-spice-app",
     "watch": "ng build --watch --configuration development",
-    "test": "jest"
+    "test": "npm run test:spice && npm run test:angular-spice-app",
+    "test:spice": "jest --coverage --config ./projects/spice/jest.config.js",
+    "test:angular-spice-app": "jest --coverage --config ./projects/angular-spice-app/jest.config.js"
   },
   "private": true,
   "dependencies": {
