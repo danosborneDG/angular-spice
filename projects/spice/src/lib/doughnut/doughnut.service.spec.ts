@@ -10,7 +10,15 @@ describe('DoughnutService', () => {
     service = TestBed.inject(DoughnutService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  describe('calculatePathShape', () => {
+    test('Calculates path shape correctly for a large arc', () => {
+      const expectation = 'M 100 5 A 95 95 0 1 1 5.000000000144695 100.00016580627893';
+      expect(service.calculatePathShape(75, 200, 5)).toBe(expectation);
+    });
+
+    test('Calculates path shape correctly for a small arc', () => {
+      const expectation = 'M 100 5 A 95 95 0 0 1 176.85651700701743 44.160266892202664';
+      expect(service.calculatePathShape(15, 200, 5)).toBe(expectation);
+    });
   });
 });

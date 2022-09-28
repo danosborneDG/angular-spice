@@ -1,1 +1,13 @@
 <p>doughnut works! god dammit</p>
+
+<div [ngStyle]="containerStyles">
+    <svg [attr.viewBox]="viewBoxAttribute">
+        <circle cx="50%" cy="50%" [attr.r]="radiusAttribute" [ngStyle]="circleStyles">
+        </circle>
+        <path [attr.d]="pathAttribute" [ngStyle]="pathStyles"></path>
+    </svg>
+    <div [ngStyle]="textContainerStyles">
+        <p [ngStyle]="valueTextStyles">100%</p>
+        <p [ngStyle]="labelTextStyles">Awesome!</p>
+    </div>
+</div>
