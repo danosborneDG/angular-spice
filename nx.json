@@ -17,5 +17,11 @@
     "libsDir": "projects",
     "appsDir": "projects"
   },
-  "defaultProject": "spice"
+  "defaultProject": "spice",
+  "test": {
+    "executor": "@nrwl/jest:jest",
+    "options": {
+      "jestConfig": "jest.config.ts"
+    }
+  }
 }
