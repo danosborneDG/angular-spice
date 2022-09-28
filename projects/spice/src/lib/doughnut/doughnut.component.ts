@@ -4,6 +4,7 @@ import {
   DoughnutSettings,
   Styles,
   SVGElementStyles,
+  SVGSizes,
   TextContainerStyles,
   TextStyles,
 } from './doughnut.models';
@@ -15,8 +16,9 @@ import { DoughnutService } from './doughnut.service';
   styleUrls: ['./doughnut.component.scss'],
 })
 export class DoughnutComponent implements OnInit {
-  thisSettings: DoughnutSettings | null = null;
+  appliedSettings: DoughnutSettings | null = null;
   styles: Styles | null = null;
+  svgSizes: SVGSizes | null = null;
   containerStyles: ContainerStyles | null = null;
   circleStyles: SVGElementStyles | null = null;
   pathStyles: SVGElementStyles | null = null;
@@ -24,21 +26,32 @@ export class DoughnutComponent implements OnInit {
   valueTextStyles: TextStyles | null = null;
   labelTextStyles: TextStyles | null = null;
   pathAttribute: string | null = null;
-  viewBoxAttribute = '0 0 200 200';
-  radiusAttribute = '85';
+  viewBoxAttribute: string | null = null;
+  radiusAttribute: string | null = null;
 
   @Input() settings: DoughnutSettings | null = null;
 
   constructor(private doughnutService: DoughnutService) {}
 
   ngOnInit(): void {
-    this.styles = this.doughnutService.generateStyles({ value: 75 });
+    this.appliedSettings = this.doughnutService.applySettings(this.settings);
+    this.styles = this.doughnutService.generateStyles(this.appliedSettings);
+    this.svgSizes = this.doughnutService.configureSvgSizes(this.appliedSettings);
+
     this.containerStyles = this.styles.containerStyles;
     this.circleStyles = this.styles.circleStyles;
     this.pathStyles = this.styles.pathStyles;
     this.textContainerStyles = this.styles.textContainerStyles;
     this.valueTextStyles = this.styles.valueTextStyles;
     this.labelTextStyles = this.styles.labelTextStyles;
-    this.pathAttribute = this.doughnutService.calculatePathShape(34, 200, 15);
+
+    this.pathAttribute = this.doughnutService.calculatePathShape(
+      this.appliedSettings.value, 
+      this.appliedSettings.size || 200, 
+      this.appliedSettings.thickness|| 15
+    );
+
+    this.viewBoxAttribute = this.svgSizes.viewbox;
+    this.radiusAttribute = this.svgSizes.radius;
   }
 }

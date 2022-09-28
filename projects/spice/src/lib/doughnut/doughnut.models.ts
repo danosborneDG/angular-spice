@@ -8,6 +8,29 @@ export enum Position {
   bottom = 'bottom',
 }
 
+export enum FontWeight {
+  normal = 'normal',
+  bold ='bold',
+  lighter= 'lighter',
+  bolder = 'bolder',
+  f100 = '100',
+  f200 = '200',
+  f300 = '300',
+  f400 = '400',
+  f500 = '500',
+  f600 = '600',
+  f700 ='700',
+  f800 = '800',
+  f900 = '900',
+  inherit = 'inherit',
+  initial = 'initial',
+  revert = 'revert',
+  revertLayer = 'revert-layer',
+  unset = 'unset',
+}
+
+
+
 export interface DoughnutSettings {
   value: number;
   size?: number;
@@ -18,13 +41,13 @@ export interface DoughnutSettings {
   primaryColour?: string;
   fontFamily?: string;
   ringColour?: string;
-  labelText?: string;
+  labelText?: string | null;
   labelColour?: string;
   labelPosition?: Position;
   labelFontSize?: number;
-  labelFontWeight?: string;
+  labelFontWeight?: FontWeight;
   valueFontSize?: number;
-  valueFontWeight?: string;
+  valueFontWeight?: FontWeight;
   format?: Format;
 }
 
@@ -49,11 +72,11 @@ export interface SharedSVGElementStyles {
 }
 
 export interface SVGElementStyles extends SharedSVGElementStyles {
-  stroke: string;
+  stroke: string | undefined;
 }
 
 export interface TextContainerStyles {
-  fontFamily: string;
+  fontFamily: string | undefined;
   position: string;
   left: string;
   top: string;
@@ -62,8 +85,13 @@ export interface TextContainerStyles {
 }
 
 export interface TextStyles {
-  fontWeight: string;
-  fontSize: string;
-  color: string;
+  fontWeight: string | undefined;
+  fontSize: string | undefined;
+  color: string | undefined;
   margin: string;
+}
+
+export interface SVGSizes {
+  viewbox: string;
+  radius: string;
 }
