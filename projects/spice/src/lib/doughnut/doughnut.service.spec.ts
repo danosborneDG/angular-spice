@@ -4,6 +4,7 @@ import {
   FontWeight,
   Format,
   Position,
+  Styles,
   SVGSizes,
 } from './doughnut.models';
 
@@ -109,28 +110,30 @@ describe('DoughnutService', () => {
     });
   });
 
-  test('Displays correct format', () => {
-    const test1 = service.formatValue({
-      format: Format.percentage,
-      maxValue: 100,
-      value: 15,
+  describe('formatValue', () => {
+    test('Displays correct format', () => {
+      const test1 = service.formatValue({
+        format: Format.percentage,
+        maxValue: 100,
+        value: 15,
+      });
+      const test2 = service.formatValue({
+        format: Format.fraction,
+        maxValue: 20,
+        value: 15,
+      });
+      const test3 = service.formatValue({
+        format: null as unknown as Format,
+        maxValue: 100,
+        value: 15,
+      });
+      expect(test1).toEqual('15%');
+      expect(test2).toEqual('15 / 20');
+      expect(test1).toEqual('15%');
     });
-    const test2 = service.formatValue({
-      format: Format.fraction,
-      maxValue: 20,
-      value: 15,
-    });
-    const test3 = service.formatValue({
-      format: null as unknown as Format,
-      maxValue: 100,
-      value: 15,
-    });
-    expect(test1).toEqual('15%');
-    expect(test2).toEqual('15 / 20');
-    expect(test1).toEqual('15%');
   });
 
-  describe('Calculate percentage tests', () => {
+  describe('calculatePercentage', () => {
     test('Calculates percentage correctly', () => {
       const test1 = service.calculatePercentage({
         value: 60,
@@ -150,6 +153,71 @@ describe('DoughnutService', () => {
       });
 
       expect(test1).toBe(70);
+    });
+  });
+
+  describe('generateStyles', () => {
+    test('Generates expected styles', () => {
+      const settings: DoughnutSettings = {
+        value: 0,
+        size: 200,
+        maxValue: 100,
+        topValue: 100,
+        thickness: 15,
+        animationDuration: null,
+        primaryColour: 'rgb(41, 128, 185)',
+        fontFamily: 'inherit',
+        ringColour: '#DDD',
+        labelText: null,
+        labelColour: '#333',
+        labelPosition: Position.bottom,
+        labelFontSize: 14,
+        labelFontWeight: FontWeight.normal,
+        valueFontSize: 28,
+        valueFontWeight: FontWeight.bold,
+        format: Format.percentage,
+      };
+
+      const expectedStyles: Styles = {
+        circleStyles: {
+          fill: 'none',
+          stroke: '#DDD',
+          strokeWidth: '15px',
+        },
+        containerStyles: {
+          height: '200px',
+          position: 'relative',
+          width: '200px',
+        },
+        labelTextStyles: {
+          color: '#333',
+          fontSize: '14px',
+          fontWeight: 'normal',
+          margin: ' 0',
+        },
+        pathStyles: {
+          fill: 'none',
+          stroke: 'rgb(41, 128, 185)',
+          strokeWidth: '15px',
+        },
+        textContainerStyles: {
+          fontFamily: 'inherit',
+          left: '50%',
+          position: 'absolute',
+          textAlign: 'center',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+        valueTextStyles: {
+          color: 'rgb(41, 128, 185)',
+          fontSize: '28px',
+          fontWeight: 'bold',
+          margin: '0',
+        },
+      };
+
+      const expectation = service.generateStyles(settings);
+      expect(expectation).toEqual(expectedStyles);
     });
   });
 });

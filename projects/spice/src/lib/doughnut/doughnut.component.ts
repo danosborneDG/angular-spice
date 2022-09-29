@@ -47,12 +47,12 @@ export class DoughnutComponent implements OnInit {
     this.labelTextStyles = this.styles.labelTextStyles;
     this.viewBoxAttribute = this.svgSizes.viewbox;
     this.radiusAttribute = this.svgSizes.radius;
+    this.label = settings.labelText;
   }
 
   generateDoughnut(settings: DoughnutSettings): void {
     this.percentage = this.doughnutService.calculatePercentage(settings);
     this.value = this.doughnutService.formatValue(settings);
-    this.label = settings.labelText;
     this.pathAttribute = this.doughnutService.calculatePathShape(
       this.percentage,
       settings.size || 200,
