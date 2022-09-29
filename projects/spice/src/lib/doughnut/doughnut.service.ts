@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DoughnutSettings, FontWeight, Format, Position, SharedSVGElementStyles, Styles, SVGSizes } from './doughnut.models';
+import {
+  DoughnutSettings,
+  FontWeight,
+  Format,
+  Position,
+  SharedSVGElementStyles,
+  Styles,
+  SVGSizes,
+} from './doughnut.models';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +47,7 @@ export class DoughnutService {
     return String(attrString);
   }
 
-  applySettings(overRides: DoughnutSettings | null) : DoughnutSettings {
+  applySettings(overRides: DoughnutSettings | null): DoughnutSettings {
     const defaults: DoughnutSettings = {
       value: 0,
       size: 200,
@@ -58,16 +66,39 @@ export class DoughnutService {
       valueFontSize: 28,
       valueFontWeight: FontWeight.bold,
       format: Format.percentage,
-    }
+    };
 
-    return {...defaults, ...overRides}
+    return { ...defaults, ...overRides };
   }
 
   configureSvgSizes(settings: DoughnutSettings): SVGSizes {
     return {
-      viewbox: `0 0 ${settings.size} ${settings.size}`,
-      radius: String(((settings.size || 200 ) / 2) - (settings.thickness || 15))
+      viewbox: `0 0 ${settings.size || 200} ${settings.size || 200}`,
+      radius: String((settings.size || 200) / 2 - (settings.thickness || 15)),
+    };
+  }
+
+  formatValue(settings: DoughnutSettings): string {
+    const format = settings.format;
+    let display: string;
+    switch (format) {
+      case Format.percentage:
+        display = `${settings.value}%`;
+        break;
+      case Format.fraction:
+        display = `${settings.value} / ${settings.maxValue}`;
+        break;
+      default:
+        display = `${settings.value}%`;
     }
+
+    return display;
+  }
+
+  calculatePercentage(settings: DoughnutSettings) {
+    const value = settings.value;
+    const maxValue = settings.maxValue || 100;
+    return (value / maxValue) * 100;
   }
 
   generateStyles(settings: DoughnutSettings): Styles {
@@ -102,7 +133,7 @@ export class DoughnutService {
       valueTextStyles: {
         fontWeight: settings.valueFontWeight,
         fontSize: `${settings.valueFontSize}px`,
-        color: settings.primaryColour ,
+        color: settings.primaryColour,
         margin: '0',
       },
       labelTextStyles: {

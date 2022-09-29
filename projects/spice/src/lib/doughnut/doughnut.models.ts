@@ -10,8 +10,8 @@ export enum Position {
 
 export enum FontWeight {
   normal = 'normal',
-  bold ='bold',
-  lighter= 'lighter',
+  bold = 'bold',
+  lighter = 'lighter',
   bolder = 'bolder',
   f100 = '100',
   f200 = '200',
@@ -19,7 +19,7 @@ export enum FontWeight {
   f400 = '400',
   f500 = '500',
   f600 = '600',
-  f700 ='700',
+  f700 = '700',
   f800 = '800',
   f900 = '900',
   inherit = 'inherit',
@@ -28,8 +28,6 @@ export enum FontWeight {
   revertLayer = 'revert-layer',
   unset = 'unset',
 }
-
-
 
 export interface DoughnutSettings {
   value: number;

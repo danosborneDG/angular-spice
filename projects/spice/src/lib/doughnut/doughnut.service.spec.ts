@@ -1,5 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { DoughnutSettings, FontWeight, Format, Position, SVGSizes } from './doughnut.models';
+import {
+  DoughnutSettings,
+  FontWeight,
+  Format,
+  Position,
+  SVGSizes,
+} from './doughnut.models';
 
 import { DoughnutService } from './doughnut.service';
 
@@ -43,9 +49,9 @@ describe('DoughnutService', () => {
         valueFontSize: 28,
         valueFontWeight: FontWeight.bold,
         format: Format.percentage,
-      }
-      const expectation = service.applySettings({value: 0});
-      expect(expectation).toEqual(defaults)
+      };
+      const expectation = service.applySettings({ value: 0 });
+      expect(expectation).toEqual(defaults);
     });
 
     test('Returns overRidden settings', () => {
@@ -67,30 +73,83 @@ describe('DoughnutService', () => {
         valueFontSize: 25,
         valueFontWeight: FontWeight.normal,
         format: Format.fraction,
-      }
+      };
       const expectation = service.applySettings(overRides);
-      expect(expectation).toEqual(overRides)
+      expect(expectation).toEqual(overRides);
     });
   });
 
   describe('configureSvgSizes', () => {
-
-
-
-    test('Configures svg sizes correctly', () => {
+    test('Configures svg sizes correctly when settings are defined', () => {
       const expectation: SVGSizes = {
-        radius: '85',
-        viewbox: '0 0 200 200'
-      }
+        radius: '45',
+        viewbox: '0 0 100 100',
+      };
 
       const settings: DoughnutSettings = {
         value: 0,
-        size: 200,
-        thickness: 15
-      }
+        size: 100,
+        thickness: 5,
+      };
 
       expect(service.configureSvgSizes(settings)).toEqual(expectation);
     });
 
+    test('Configures svg sizes correctly when settings are not defined', () => {
+      const expectation: SVGSizes = {
+        radius: '85',
+        viewbox: '0 0 200 200',
+      };
+
+      const settings: DoughnutSettings = {
+        value: 0,
+      };
+
+      expect(service.configureSvgSizes(settings)).toEqual(expectation);
+    });
+  });
+
+  test('Displays correct format', () => {
+    const test1 = service.formatValue({
+      format: Format.percentage,
+      maxValue: 100,
+      value: 15,
+    });
+    const test2 = service.formatValue({
+      format: Format.fraction,
+      maxValue: 20,
+      value: 15,
+    });
+    const test3 = service.formatValue({
+      format: null as unknown as Format,
+      maxValue: 100,
+      value: 15,
+    });
+    expect(test1).toEqual('15%');
+    expect(test2).toEqual('15 / 20');
+    expect(test1).toEqual('15%');
+  });
+
+  describe('Calculate percentage tests', () => {
+    test('Calculates percentage correctly', () => {
+      const test1 = service.calculatePercentage({
+        value: 60,
+        maxValue: 120,
+      });
+      const test2 = service.calculatePercentage({
+        value: 30,
+        maxValue: 120,
+      });
+      expect(test1).toBe(50);
+      expect(test2).toBe(25);
+    });
+
+    test('Calculates percentage correctly when maxValue is undefined', () => {
+      const test1 = service.calculatePercentage({
+        value: 70,
+      });
+
+      expect(test1).toBe(70);
+    });
   });
 });

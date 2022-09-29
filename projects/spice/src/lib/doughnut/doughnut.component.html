@@ -1,4 +1,3 @@
-<p>doughnut works! god dammit</p>
 
 <div [ngStyle]="containerStyles">
     <svg [attr.viewBox]="viewBoxAttribute">
@@ -7,7 +6,7 @@
         <path [attr.d]="pathAttribute" [ngStyle]="pathStyles"></path>
     </svg>
     <div [ngStyle]="textContainerStyles">
-        <p [ngStyle]="valueTextStyles">100%</p>
-        <p [ngStyle]="labelTextStyles">Awesome!</p>
+        <p [ngStyle]="valueTextStyles">{{value}}</p>
+        <p [ngStyle]="labelTextStyles">{{label}}</p>
     </div>
 </div>
