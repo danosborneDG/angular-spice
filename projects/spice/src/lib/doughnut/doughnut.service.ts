@@ -144,4 +144,8 @@ export class DoughnutService {
       },
     };
   }
+
+  stepDuration(percentage: number, duration: number) {
+    return duration / percentage;
+  }
 }

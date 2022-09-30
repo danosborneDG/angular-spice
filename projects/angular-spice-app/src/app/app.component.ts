@@ -26,9 +26,10 @@ export class AppComponent {
   };
 
   doughnutSettings3: DoughnutSettings = {
-    value: 34,
+    value: 89,
     thickness: 5,
     size: 150,
     valueFontSize: 35,
+    animationDuration: 1500,
   };
 }
