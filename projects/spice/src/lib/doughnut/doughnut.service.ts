@@ -47,7 +47,7 @@ export class DoughnutService {
     return String(attrString);
   }
 
-  applySettings(overRides: DoughnutSettings | null): DoughnutSettings {
+  applySettings(overRides: DoughnutSettings): DoughnutSettings {
     const defaults: DoughnutSettings = {
       value: 0,
       size: 200,
@@ -73,8 +73,8 @@ export class DoughnutService {
 
   configureSvgSizes(settings: DoughnutSettings): SVGSizes {
     return {
-      viewbox: `0 0 ${settings.size || 200} ${settings.size || 200}`,
-      radius: String((settings.size || 200) / 2 - (settings.thickness || 15)),
+      viewbox: `0 0 ${settings.size as number} ${settings.size as number}`,
+      radius: String((settings.size as number) / 2 - (settings.thickness as number)),
     };
   }
 
@@ -97,7 +97,7 @@ export class DoughnutService {
 
   calculatePercentage(settings: DoughnutSettings) {
     const value = settings.value;
-    const maxValue = settings.maxValue || 100;
+    const maxValue = settings.maxValue as number;
     return (value / maxValue) * 100;
   }
 

@@ -95,19 +95,6 @@ describe('DoughnutService', () => {
 
       expect(service.configureSvgSizes(settings)).toEqual(expectation);
     });
-
-    test('Configures svg sizes correctly when settings are not defined', () => {
-      const expectation: SVGSizes = {
-        radius: '85',
-        viewbox: '0 0 200 200',
-      };
-
-      const settings: DoughnutSettings = {
-        value: 0,
-      };
-
-      expect(service.configureSvgSizes(settings)).toEqual(expectation);
-    });
   });
 
   describe('formatValue', () => {
@@ -145,14 +132,6 @@ describe('DoughnutService', () => {
       });
       expect(test1).toBe(50);
       expect(test2).toBe(25);
-    });
-
-    test('Calculates percentage correctly when maxValue is undefined', () => {
-      const test1 = service.calculatePercentage({
-        value: 70,
-      });
-
-      expect(test1).toBe(70);
     });
   });
 

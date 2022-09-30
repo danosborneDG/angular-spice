@@ -1,3 +1,4 @@
+import { fakeAsync, tick } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { DoughnutComponent } from './doughnut.component';
 import {
@@ -11,14 +12,15 @@ import { DoughnutService } from './doughnut.service';
 
 describe('AppComponent', () => {
   let component: DoughnutComponent;
+  let service: DoughnutService;
 
   beforeEach(() => {
-    component = new DoughnutComponent(new DoughnutService());
+    service = new DoughnutService();
+    component = new DoughnutComponent(service);
   });
 
   it('should render Welcome', async () => {
     await render(DoughnutComponent);
-    // await screen.getByText('doughnut works! god dammit');
   });
 
   test('ngOnInit', () => {
@@ -59,6 +61,7 @@ describe('AppComponent', () => {
     const settings: DoughnutSettings = {
       value: 75,
       labelText: 'hello world!',
+      maxValue: 100,
     };
     component.generateDoughnut(settings);
 
@@ -140,5 +143,59 @@ describe('AppComponent', () => {
     expect(component.viewBoxAttribute).toEqual('0 0 200 200');
     expect(component.radiusAttribute).toEqual('85');
     expect(component.label).toEqual('Hello world!');
+  });
+
+  describe('handleAnimation', () => {
+    it('should not call handle animation when animationDuration is undefined', () => {
+      jest.spyOn(component, 'handleAnimation');
+      component.ngOnInit();
+      expect(component.handleAnimation).not.toHaveBeenCalled();
+    });
+
+    it('should call handle animation when animationDuration is defined', () => {
+      jest.spyOn(component, 'handleAnimation');
+      component.settings = {
+        value: 100,
+        animationDuration: 300,
+      };
+      component.ngOnInit();
+      expect(component.handleAnimation).toHaveBeenCalled();
+    });
+
+    it('should handle animation as expected', fakeAsync(() => {
+      jest.spyOn(service, 'calculatePathShape');
+      jest.spyOn(service, 'formatValue');
+      jest.spyOn(service, 'stepDuration');
+
+      component.settings = {
+        value: 1,
+        animationDuration: 300,
+      };
+      component.ngOnInit();
+
+      tick(300);
+
+      expect(service.calculatePathShape).toHaveBeenCalledWith(1, 200, 15);
+      expect(service.formatValue).toHaveBeenCalledWith({
+        animationDuration: 300,
+        fontFamily: 'inherit',
+        format: 'percentage',
+        labelColour: '#333',
+        labelFontSize: 14,
+        labelFontWeight: 'normal',
+        labelPosition: 'bottom',
+        labelText: null,
+        maxValue: 100,
+        primaryColour: 'rgb(41, 128, 185)',
+        ringColour: '#DDD',
+        size: 200,
+        thickness: 15,
+        topValue: 100,
+        value: 1,
+        valueFontSize: 28,
+        valueFontWeight: 'bold',
+      });
+      expect(service.stepDuration).toHaveBeenCalled();
+    }));
   });
 });

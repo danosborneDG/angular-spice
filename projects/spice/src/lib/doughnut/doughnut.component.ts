@@ -16,18 +16,18 @@ import { DoughnutService } from './doughnut.service';
   styleUrls: ['./doughnut.component.scss'],
 })
 export class DoughnutComponent implements OnInit {
-  appliedSettings: DoughnutSettings | null = null;
-  styles: Styles | null = null;
-  svgSizes: SVGSizes | null = null;
-  containerStyles: ContainerStyles | null = null;
-  circleStyles: SVGElementStyles | null = null;
-  pathStyles: SVGElementStyles | null = null;
-  textContainerStyles: TextContainerStyles | null = null;
-  valueTextStyles: TextStyles | null = null;
-  labelTextStyles: TextStyles | null = null;
-  pathAttribute: string | null = null;
-  viewBoxAttribute: string | null = null;
-  radiusAttribute: string | null = null;
+  appliedSettings: DoughnutSettings = {} as DoughnutSettings;
+  styles: Styles = {} as Styles;
+  svgSizes: SVGSizes = {} as SVGSizes;
+  containerStyles: ContainerStyles = {} as ContainerStyles;
+  circleStyles: SVGElementStyles = {} as SVGElementStyles;
+  pathStyles: SVGElementStyles = {} as SVGElementStyles;
+  textContainerStyles: TextContainerStyles = {} as TextContainerStyles;
+  valueTextStyles: TextStyles = {} as TextStyles;
+  labelTextStyles: TextStyles = {} as TextStyles;
+  pathAttribute: string = '';
+  viewBoxAttribute: string = '';
+  radiusAttribute: string = '';
   percentage: number = 0;
   value: string = '';
   label: string | null | undefined = '';
@@ -65,19 +65,21 @@ export class DoughnutComponent implements OnInit {
       setTimeout(() => {
         this.pathAttribute = this.doughnutService.calculatePathShape(
           index,
-          this.appliedSettings?.size || 200,
-          this.appliedSettings?.thickness || 15,
+          this.appliedSettings.size as number,
+          this.appliedSettings.thickness as number,
         );
         this.value = this.doughnutService.formatValue({
           ...this.appliedSettings,
           ...{ value: index },
         });
-      }, index * this.doughnutService.stepDuration(this.percentage, this.appliedSettings?.animationDuration || 500));
+      }, index * this.doughnutService.stepDuration(this.percentage, this.appliedSettings.animationDuration as number));
     }
   }
 
   ngOnInit(): void {
-    this.appliedSettings = this.doughnutService.applySettings(this.settings);
+    this.appliedSettings = this.doughnutService.applySettings(
+      this.settings as DoughnutSettings,
+    );
     this.handleStyles(this.appliedSettings);
     this.generateDoughnut(this.appliedSettings);
 
