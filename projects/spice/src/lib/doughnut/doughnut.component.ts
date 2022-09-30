@@ -60,9 +60,29 @@ export class DoughnutComponent implements OnInit {
     );
   }
 
+  handleAnimation(): void {
+    for (let index = 0; index < this.percentage + 1; index++) {
+      setTimeout(() => {
+        this.pathAttribute = this.doughnutService.calculatePathShape(
+          index,
+          this.appliedSettings?.size || 200,
+          this.appliedSettings?.thickness || 15,
+        );
+        this.value = this.doughnutService.formatValue({
+          ...this.appliedSettings,
+          ...{ value: index },
+        });
+      }, index * this.doughnutService.stepDuration(this.percentage, this.appliedSettings?.animationDuration || 500));
+    }
+  }
+
   ngOnInit(): void {
     this.appliedSettings = this.doughnutService.applySettings(this.settings);
     this.handleStyles(this.appliedSettings);
     this.generateDoughnut(this.appliedSettings);
+
+    if (this.appliedSettings.animationDuration) {
+      this.handleAnimation();
+    }
   }
 }

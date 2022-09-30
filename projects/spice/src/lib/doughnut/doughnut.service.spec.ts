@@ -220,4 +220,10 @@ describe('DoughnutService', () => {
       expect(expectation).toEqual(expectedStyles);
     });
   });
+
+  describe('stepDuration', () => {
+    test('Calculates step duration correctly', () => {
+      expect(service.stepDuration(50, 1000)).toBe(20);
+    });
+  });
 });
