@@ -71,6 +71,18 @@ export class DoughnutService {
     return { ...defaults, ...overRides };
   }
 
+  calculatePrimaryColour(settings: DoughnutSettings): string {
+    if (typeof settings.primaryColour === 'string') {
+      return settings.primaryColour;
+    } else {
+      const colours = settings.primaryColour as Array<string>;
+      const colourCount = colours.length;
+      const colourRange = Number(settings.maxValue) / Number(colourCount);
+      const index = Math.floor(settings.value / Number(colourRange));
+      return colours[index];
+    }
+  }
+
   configureSvgSizes(settings: DoughnutSettings): SVGSizes {
     return {
       viewbox: `0 0 ${settings.size as number} ${settings.size as number}`,
@@ -119,7 +131,7 @@ export class DoughnutService {
         ...sharedSvgStyles,
       },
       pathStyles: {
-        stroke: settings.primaryColour,
+        stroke: settings.primaryColour as string,
         ...sharedSvgStyles,
       },
       textContainerStyles: {
@@ -133,7 +145,7 @@ export class DoughnutService {
       valueTextStyles: {
         fontWeight: settings.valueFontWeight,
         fontSize: `${settings.valueFontSize}px`,
-        color: settings.primaryColour,
+        color: settings.primaryColour as string,
         margin: '0',
       },
       labelTextStyles: {

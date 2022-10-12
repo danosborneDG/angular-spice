@@ -36,7 +36,7 @@ export interface DoughnutSettings {
   topValue?: number;
   thickness?: number;
   animationDuration?: number | null;
-  primaryColour?: string;
+  primaryColour?: string | string[];
   fontFamily?: string;
   ringColour?: string;
   labelText?: string | null;
