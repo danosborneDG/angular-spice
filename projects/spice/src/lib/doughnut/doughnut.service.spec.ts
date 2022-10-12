@@ -205,4 +205,44 @@ describe('DoughnutService', () => {
       expect(service.stepDuration(50, 1000)).toBe(20);
     });
   });
+
+  describe('calculatePrimaryColour', () => {
+    it('should return the correct colour when setting.primaryColour is a string', () => {
+      const test = service.calculatePrimaryColour(25, {
+        value: 25,
+        primaryColour: 'red',
+      });
+      expect(test).toEqual('red');
+    });
+
+    it('should return the correct colour when setting.primaryColour is a array', () => {
+      const test1 = service.calculatePrimaryColour(24, {
+        value: 24,
+        maxValue: 100,
+        primaryColour: ['red', 'orange', 'yellow', 'green'],
+      });
+      expect(test1).toEqual('red');
+
+      const test2 = service.calculatePrimaryColour(49, {
+        value: 49,
+        maxValue: 100,
+        primaryColour: ['red', 'orange', 'yellow', 'green'],
+      });
+      expect(test2).toEqual('orange');
+
+      const test3 = service.calculatePrimaryColour(55, {
+        value: 55,
+        maxValue: 100,
+        primaryColour: ['red', 'orange', 'yellow', 'green'],
+      });
+      expect(test3).toEqual('yellow');
+
+      const test4 = service.calculatePrimaryColour(98, {
+        value: 98,
+        maxValue: 100,
+        primaryColour: ['red', 'orange', 'yellow', 'green'],
+      });
+      expect(test4).toEqual('green');
+    });
+  });
 });

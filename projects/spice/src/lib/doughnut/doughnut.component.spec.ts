@@ -198,41 +198,4 @@ describe('AppComponent', () => {
       expect(service.stepDuration).toHaveBeenCalled();
     }));
   });
-
-  describe('calculatePrimaryColour', () => {
-    it('should return the correct colour when setting.primaryColour is a string', () => {
-      const test = service.calculatePrimaryColour({ value: 25, primaryColour: 'red' });
-      expect(test).toEqual('red');
-    });
-
-    it('should return the correct colour when setting.primaryColour is a array', () => {
-      const test1 = service.calculatePrimaryColour({
-        value: 24,
-        maxValue: 100,
-        primaryColour: ['red', 'orange', 'yellow', 'green'],
-      });
-      expect(test1).toEqual('red');
-
-      const test2 = service.calculatePrimaryColour({
-        value: 49,
-        maxValue: 100,
-        primaryColour: ['red', 'orange', 'yellow', 'green'],
-      });
-      expect(test2).toEqual('orange');
-
-      const test3 = service.calculatePrimaryColour({
-        value: 55,
-        maxValue: 100,
-        primaryColour: ['red', 'orange', 'yellow', 'green'],
-      });
-      expect(test3).toEqual('yellow');
-
-      const test4 = service.calculatePrimaryColour({
-        value: 98,
-        maxValue: 100,
-        primaryColour: ['red', 'orange', 'yellow', 'green'],
-      });
-      expect(test4).toEqual('green');
-    });
-  });
 });
