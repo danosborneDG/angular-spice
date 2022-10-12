@@ -13,7 +13,6 @@ import { DoughnutService } from './doughnut.service';
 @Component({
   selector: 'spice-doughnut',
   templateUrl: './doughnut.component.html',
-  styleUrls: ['./doughnut.component.scss'],
 })
 export class DoughnutComponent implements OnInit {
   appliedSettings: DoughnutSettings = {} as DoughnutSettings;
@@ -63,6 +62,10 @@ export class DoughnutComponent implements OnInit {
   handleAnimation(): void {
     for (let index = 0; index < this.percentage + 1; index++) {
       setTimeout(() => {
+        const colour = this.doughnutService.calculatePrimaryColour(
+          index,
+          this.appliedSettings,
+        );
         this.pathAttribute = this.doughnutService.calculatePathShape(
           index,
           this.appliedSettings.size as number,
@@ -72,6 +75,8 @@ export class DoughnutComponent implements OnInit {
           ...this.appliedSettings,
           ...{ value: index },
         });
+        this.pathStyles.stroke = colour;
+        this.valueTextStyles.color = colour;
       }, index * this.doughnutService.stepDuration(this.percentage, this.appliedSettings.animationDuration as number));
     }
   }

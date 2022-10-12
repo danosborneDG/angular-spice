@@ -26,10 +26,11 @@ export class AppComponent {
   };
 
   doughnutSettings3: DoughnutSettings = {
-    value: 89,
+    value: 67,
     thickness: 5,
     size: 150,
     valueFontSize: 35,
-    animationDuration: 1500,
+    animationDuration: 500,
+    primaryColour: ['red', 'orange', 'yellow', 'green'],
   };
 }
