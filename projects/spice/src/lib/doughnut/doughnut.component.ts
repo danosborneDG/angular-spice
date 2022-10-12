@@ -13,7 +13,6 @@ import { DoughnutService } from './doughnut.service';
 @Component({
   selector: 'spice-doughnut',
   templateUrl: './doughnut.component.html',
-  styleUrls: ['./doughnut.component.scss'],
 })
 export class DoughnutComponent implements OnInit {
   appliedSettings: DoughnutSettings = {} as DoughnutSettings;
